@@ -191,5 +191,3 @@ Rate limiting to prevent brute-force attacks
 
 CORS restricted to trusted frontend origins
 
-
-#
