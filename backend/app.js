@@ -12,20 +12,17 @@ const app = express();
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:5173",
   "http://localhost:3000",
-  "https://trustboard-akshay-s-projects-1022b9d4.vercel.app", // ✅ correct deployed frontend
+  "https://Trustboard.vercel.app",
 ];
-
 app.use(
   cors({
     origin(origin, cb) {
       if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      console.warn("❌ Blocked by CORS:", origin);
       cb(new Error("Not allowed by CORS"));
     },
     credentials: true,
   })
 );
-
 
 // Cookies + JSON
 app.use(cookieParser());
