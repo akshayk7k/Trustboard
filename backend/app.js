@@ -12,7 +12,7 @@ const app = express();
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:5173",
   "http://localhost:3000",
-  "https://Trustboard.vercel.app",
+  "https://trustboard.vercel.app",
 ];
 app.use(
   cors({
