@@ -9,7 +9,21 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  // Add timeouts to prevent hanging
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 5000,    // 5 seconds
+  socketTimeout: 10000,     // 10 seconds
 });
+
+// Verify connection configuration
+const verifyConnection = async () => {
+  try {
+    await transporter.verify();
+    console.log("✅ SMTP Connection Verified: Ready to send emails");
+  } catch (error) {
+    console.error("❌ SMTP Connection Failed:", error.message);
+  }
+};
 
 const sendEmail = async ({ to, subject, text, html }) => {
   console.log("Attempting to send email...");
@@ -37,4 +51,4 @@ const sendEmail = async ({ to, subject, text, html }) => {
   }
 };
 
-module.exports = sendEmail;
+module.exports = { sendEmail, verifyConnection };

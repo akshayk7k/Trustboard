@@ -3,7 +3,7 @@ const router = express.Router();
 const Feedback = require("../models/Feedback.model");
 const Comment = require("../models/Comment.model");
 const auth = require("../middleware/auth");
-const sendEmail = require("../utils/sendEmail");
+const { sendEmail } = require("../utils/sendEmail");
 const moderateFeedback = require("../utils/moderateFeedback");
 
 // Create feedback
