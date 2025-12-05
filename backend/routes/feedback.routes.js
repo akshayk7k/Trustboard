@@ -23,17 +23,22 @@ router.post("/", async (req, res) => {
     await feedback.save();
 
     // Email failures won't block the response
-    // Send email asynchronously (fire and forget)
-    sendEmail({
-      to: process.env.ADMIN_EMAIL,
-      subject: "New Feedback Submitted",
-      text: `New feedback: ${text}\nTags: ${tags ? tags.join(", ") : "None"}`,
-      html: `<h3>New Feedback Submitted</h3>
+    if (!process.env.ADMIN_EMAIL) {
+      console.error("ADMIN_EMAIL is not defined. Cannot send email.");
+    } else {
+      // Send email asynchronously (fire and forget)
+      sendEmail({
+        to: process.env.ADMIN_EMAIL,
+        subject: "New Feedback Submitted",
+        text: `New feedback: ${text}\nTags: ${tags ? tags.join(", ") : "None"}`,
+        html: `<h3>New Feedback Submitted</h3>
              <p><strong>Text:</strong> ${text}</p>
              <p><strong>Tags:</strong> ${tags ? tags.join(", ") : "None"}</p>`,
-    }).catch((emailErr) => {
-      console.error("Failed to send email:", emailErr.message);
-    });
+      }).catch((emailErr) => {
+        console.error("Failed to send email:", emailErr.message);
+      });
+
+    }
 
     res.status(201).json(feedback);
   } catch (err) {
