@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 // Only connect and start server if not in test mode
 console.log("Environment:", process.env.NODE_ENV);
 if (process.env.NODE_ENV !== "test") {
-  console.log("MongoDB URI:", process.env.MONGO_URI);
+  // console.log("MongoDB URI:", process.env.MONGO_URI); // HIDDEN FOR SECURITY
   mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
