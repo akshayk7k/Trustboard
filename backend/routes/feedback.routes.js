@@ -30,9 +30,8 @@ router.post("/", async (req, res) => {
         text: `New feedback: ${text}\nTags: ${tags ? tags.join(", ") : "None"}`,
         html: `<h3>New Feedback Submitted</h3>
                <p><strong>Text:</strong> ${text}</p>
-               <p><strong>Tags:</strong> ${
-                 tags ? tags.join(", ") : "None"
-               }</p>`,
+               <p><strong>Tags:</strong> ${tags ? tags.join(", ") : "None"
+          }</p>`,
       });
     } catch (emailErr) {
       console.error("Failed to send email:", emailErr.message);
@@ -54,6 +53,7 @@ router.get("/", async (req, res) => {
     if (status) filter.status = status;
 
     const feedbacks = await Feedback.find(filter).sort({ createdAt: -1 });
+    console.log(feedbacks);
     res.json(feedbacks);
   } catch (err) {
     console.error("Route error (GET /feedback):", err.message);
